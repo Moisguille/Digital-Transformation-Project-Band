@@ -1,155 +1,135 @@
-Aquí tienes la arquitectura y especificación de requisitos para el **DMS** (Document Management System) de **Callearte**, extraída y organizada de forma limpia a partir del documento proporcionado.
 
-# Callearte DMS: Document Management System
+---
 
-Este documento detalla la especificación de requisitos para el sistema de gestión documental de **Callearte**, diseñado para centralizar y proteger el patrimonio intelectual y administrativo de la banda.
+# Callearte: Enterprise Information Systems & Digital Transformation
 
-## 📖 Contexto de Negocio
+This repository contains the complete systems architecture and requirements specification for **Callearte**, a professional flamenco musical organization. This project documents the digital transformation from a decentralized, manual workflow to an integrated **Content Management System (CMS)** and **Document Management System (DMS)**.
 
-Callearte es una agrupación de flamenco de El Puerto de Santa María integrada por 15 profesionales, divididos en áreas de marketing, músicos y equipo técnico. Actualmente, la organización carece de un sistema centralizado, lo que provoca duplicidad de archivos y riesgo de pérdida de información al depender de WhatsApp y discos duros individuales.
+## 📖 Business Context
 
-### Objetivos del DMS
+Callearte is a 15-employee organization consisting of marketing staff, musicians, and technical personnel based in El Puerto de Santa María.
 
-* 
-**OBJ-0001 (Gestión):** Organizar y gestionar toda la documentación según las necesidades operativas de la banda.
-
+### Current State vs. Objectives
 
 * 
-**OBJ-0003 (Seguridad):** Proteger información confidencial mediante cifrado y permisos, asegurando la continuidad del negocio con copias de seguridad automáticas.
+**Current State:** The organization lacks integrated management systems, relying on email for bookings, WhatsApp for coordination, and individual hard drives for storage, leading to data duplication and potential loss.
+
+
+* **Primary Objectives:**
+* 
+**OBJ-0001 (Document Management):** Organize and manage documents according to business needs.
+
+
+* 
+**OBJ-0003 (Security & Control):** Protect confidential information through access permissions, encryption, and automatic backups.
+
+
+* **Promotion & Visibility:** Facilitate live bookings and increase visibility through concert schedules and multimedia publication.
 
 
 
 ---
 
-## 🛠️ Catálogo de Requisitos de Información (IRQ)
+## 🛠️ Requirements Catalog
 
-El sistema debe capturar y almacenar los siguientes metadatos para cada tipo de documento:
+### 1. Information Requirements (Data Entities)
 
-| ID | Entidad | Datos Específicos a Almacenar |
+The system is architected to manage the following data structures:
+
+| ID | Entity | Specific Data to Store |
 | --- | --- | --- |
-| **IRQ-0001** | **Reservas** | Nombre del cliente, correo, fecha del evento, dirección, fecha de reserva y trimestre.
+| **IRQ-0001** | **Bookings** | Client name, email, event date, address, and booking date.
 
  |
-| **IRQ-0002** | **Facturas** | Servicio, duración, importe, fecha de emisión, estado y trimestre.
+| **IRQ-0002** | **Invoices** | Service required, duration, amount, emission date, and status.
 
  |
-| **IRQ-0003** | **Partituras** | Autor, fecha de creación y nombre de la canción.
+| **IRQ-0003** | **Sheet Music** | Author, creation date, and song name.
 
  |
-| **IRQ-0004** | **Contratos** | Nombre del contratado, fecha, tipo (indefinido/temporal), vencimiento y estado.
+| **IRQ-0004** | **Contracts** | Name of the contracted party, type, and expiration date.
 
  |
-| **IRQ-0005** | **Letras** | Nombre de la canción (para uso de los cantantes).
+| **IRQ-0005** | **Lyrics** | Song names for rehearsal and memorization.
 
  |
-| **IRQ-0006** | **Inf. Técnico** | Código del material, fecha de última revisión y estado (nuevo/desgastado/deplorable).
+| **IRQ-0006** | **Tech Reports** | Material code, last review date, and equipment status.
 
  |
-| **IRQ-0007** | **Multimedia** | Archivo, fecha del evento, tipo de archivo y nombre del evento.
+| **IRQ-0007** | **Multimedia** | Event files, event date, file type, and event name.
 
  |
-| **IRQ-0008** | **Marketing** | Planes estratégicos, tipo (logos/folletos) y versión del documento.
+| **IRQ-0008** | **Marketing** | Marketing plans, file versions, and promotional asset types.
 
  |
 
 ---
 
-## 🔄 Casos de Uso Principales (UC)
+## 🔄 System Interaction & Roles
 
-### Gestión Administrativa
+The following diagram illustrates how different user roles interact with the repository based on the established business rules and permissions.
 
-* 
-**Consulta de Reservas y Facturas:** El mánager localiza estos documentos filtrando por **trimestre** y **nombre de cliente**.
-
-
-* 
-**Control de Pagos:** Revisión semanal de facturas filtrando exclusivamente por su **estado**.
-
-
-* 
-**Renovación de Contratos:** Actualización de registros indicando el **tipo de contrato** y el **nombre del contratado**.
-
-
-
-### Operación y Marketing
-
-* 
-**Ensayos:** Los músicos acceden a letras y partituras buscando por el **nombre de la canción**.
-
-
-* 
-**Mantenimiento Técnico:** El técnico consulta el estado de equipos mediante su **código** y **estado** actual.
-
-
-* 
-**Promoción:** El equipo de marketing recupera fotos y vídeos por **nombre de evento**. Para imprenta, filtran por **tipo de archivo** y **última versión** para evitar errores de producción.
-
-
-
----
-
-## 🔐 Reglas de Negocio (Control de Acceso)
-
-El sistema impone las siguientes restricciones de seguridad según el rol del usuario:
-
-* 
-**Mánager (Mari Carmen Atienza):** Permisos de **Lectura y Escritura** en Reservas, Facturas y Contratos.
-
-
-* 
-**Músicos y Cantantes:** Permisos de **solo Lectura** exclusivamente para letras y partituras.
-
-
-* 
-**Técnico de Sonido (Rocío Atienza):** Permisos de **Lectura y Escritura** para informes técnicos.
-
-
-* 
-**Equipo de Marketing:** Permisos de **Lectura y Escritura** en documentación de marketing y **solo Lectura** en archivos multimedia.
-
-
-
----
-
-## 👥 Participantes del Proyecto
-
-* 
-**Cliente (Callearte):** Representado por Mari Carmen Atienza (Mánager), Rocío Atienza (Técnico), Julio Martín (Músico) y Fran Márquez (Marketing).
-
-
-* 
-**Equipo de Desarrollo (Gsi):** Sergio Díaz Vázquez, Moisés Guillermo Godoy Nava, Marco Granja Quinto y Ricardo Fernández Rodríguez Navas.
-
-
-
----
-
-
+```mermaid
 graph TD
-    %% Centro del Sistema
-    DMS((Callearte DMS))
+    subgraph Users
+        M[Manager: Mari Carmen Atienza]
+        T[Sound Tech: Rocío Atienza]
+        Mu[Musician: Julio Martín]
+        Mk[Marketing: Fran Márquez]
+    end
 
-    %% Rol: Mánager
-    Manager[Mánager: Mari Carmen Atienza] -->|Lectura/Escritura| Admin_Data[Reservas, Facturas y Contratos]
-    Admin_Data --- UC_Admin[UC-0001: Gestionar Reservas<br/>UC-0002: Consultar Facturas<br/>UC-0003: Comprobar Pagos<br/>UC-0005: Renovar Contratos]
-    UC_Admin --> DMS
+    subgraph "DMS Repository"
+        D1[Bookings, Invoices & Contracts]
+        D2[Technical Reports]
+        D3[Lyrics & Sheet Music]
+        D4[Marketing Plans & Assets]
+        D5[Multimedia Files]
+    end
 
-    %% Rol: Músicos
-    Musicians[Músicos y Cantantes: Julio Martín] -->|Solo Lectura| Artist_Data[Letras y Partituras]
-    Artist_Data --- UC_Artist[UC-0006: Consulta para Ensayos]
-    UC_Artist --> DMS
+    M -->|Read/Write| D1
+    T -->|Read/Write| D2
+    Mu -->|Read| D3
+    Mk -->|Read/Write| D4
+    Mk -->|Read| D5
+    
+    style M fill:#f9f,stroke:#333,stroke-width:2px
+    style Mk fill:#bbf,stroke:#333,stroke-width:2px
+    style T fill:#bfb,stroke:#333,stroke-width:2px
+    style Mu fill:#fbb,stroke:#333,stroke-width:2px
 
-    %% Rol: Técnico de Sonido
-    Tech[Técnico: Rocío Atienza] -->|Lectura/Escritura| Tech_Data[Informes Técnicos]
-    Tech_Data --- UC_Tech[UC-0007: Revisión de Equipos]
-    UC_Tech --> DMS
+```
 
-    %% Rol: Marketing
-    Marketing[Marketing: Fran Márquez] -->|Lectura/Escritura| Mkt_Data[Planes y Diseños de Marketing]
-    Marketing -->|Solo Lectura| Multi_Data[Multimedia: Fotos y Vídeos]
-    Mkt_Data --- UC_Mkt[UC-0009: Gestionar Planes<br/>UC-0010: Impresión Final<br/>UC-0011: Revisión de Borradores]
-    Multi_Data --- UC_Multi[UC-0008: Uso de Multimedia por Evento]
-    UC_Mkt --> DMS
-    UC_Multi --> DMS
+---
+
+## 💼 Business Rules (Logic Layer)
+
+Access and operations are strictly governed by the following roles:
+
+| ID | Rule Name | Logic & Permissions |
+| --- | --- | --- |
+| **CRQ-0004** | **Manager Access** | The manager has Read/Write permissions for Bookings, Invoices, and Contracts.
+
+ |
+| **CRQ-0005** | **Musician Access** | Musicians and singers have Read-only access to lyrics and sheet music.
+
+ |
+| **CRQ-0006** | **Tech Access** | The sound technician has Read/Write permissions for technical reports.
+
+ |
+| **CRQ-0007** | **Marketing Access** | Read/Write access for marketing docs; Read-only access for multimedia.
+
+ |
+
+---
+
+## 📂 Project Structure
+
+* **/Analysis**: UML modeling and system requirements documentation.
+* **/CMS**: Content Management System core logic and requirement mapping.
+* 
+**/DMS**: Document Management System specifications for file handling.
 
 
+* **/WSCT**: Web Service and Commerce Tool integration for booking automation.
+
+---
