@@ -76,4 +76,3 @@ The system enforces strict operational policies through its architecture:
 
 ---
 
-¿Te gustaría que te ayude a redactar alguna sección adicional para este repositorio o a pasar estos requerimientos a un formato de tickets para desarrollo?
